@@ -1,21 +1,24 @@
-# react-redux-saga-boilerplate
+# Spaced Repitition System
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/mCodex/react-redux-saga-boilerplate.svg)](https://greenkeeper.io/)
+## Summary
 
-My simple starter kit which I'd love to share to the community. The project was generated from `create-react-app` and then I included a few libraries.
+A flashcard-based web application designed to optimize memorization via custom SRS algorithm. 
 
-## Features Out-Of-The-Box
+Boilerplate code was taken from [here](https://github.com/mCodex/react-redux-saga-boilerplate)
 
-* React-Router 4
-* Semantic Ui
-* Redux
-* Redux Saga
-* ESlint
-* Airbnb's ESlint rules
+### Main Dependencies
+
+- React
+- Redux 
+- Redux Saga
+- Semantic UI 
+- Heapify
+
+### Notes
 
 ## Live Demo
 
-https://react-redux-saga-boilerplate.herokuapp.com/
+Coming soon.
 
 ## Installation
 
