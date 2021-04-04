@@ -1,15 +1,15 @@
-import { GET_USERS_SAGA, SET_USERS } from '../constants';
+import { GET_QUESTIONS_SAGA, SET_QUESTIONS } from '../constants';
 
-export function setUsers(users) {
+export function setQuestions(questions) {
   return {
-    type: SET_USERS,
-    users
+    type: SET_QUESTIONS,
+    questions,
   };
 }
 
 //Sagas
-export function getUsersSaga() {
+export function getQuestionsSaga() {
   return {
-    type: GET_USERS_SAGA
+    type: GET_QUESTIONS_SAGA,
   };
 }

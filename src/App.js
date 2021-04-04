@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import { Provider } from 'react-redux';
 
 import store from './store';
@@ -7,12 +6,12 @@ import store from './store';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <div>Why hello there!</div>
-      </Provider>
-    );
-  }
-}
+import Settings from './components/Settings';
+
+const App = () => (
+  <Provider store={store}>
+    <Settings />
+  </Provider>
+);
+
+export default App;
