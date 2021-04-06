@@ -6,17 +6,23 @@ import QuestionCard from './QuestionCard';
 
 const Quiz = () => {
   const questions = useSelector((state) => state.questionsReducer.questions);
+  const currentQuestionKey = useSelector(
+    (state) => state.queueReducer.currentKey
+  );
+  const currentQuestion = questions[currentQuestionKey];
 
   return (
     <Grid style={{ height: '100vh' }} verticalAlign='middle' centered>
       <Grid.Column style={{ maxWidth: '600px' }}>
-        {questions.length === 0 ? (
+        {currentQuestionKey === null ? (
           <Settings />
         ) : (
           <QuestionCard
-            question={questions[0].question}
-            incorrectAnswers={questions[0].incorrect_answers}
-            correctAnswer={questions[0].correct_answer}
+            // key={currentQuestionKey}
+            question={currentQuestion.question}
+            incorrectAnswers={currentQuestion.incorrect_answers}
+            correctAnswer={currentQuestion.correct_answer}
+            questionTime={30}
           />
         )}
       </Grid.Column>

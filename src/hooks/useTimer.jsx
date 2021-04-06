@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-export const useTimer = (seconds, answerSelected) => {
-  const [timeLeft, setTimeLeft] = useState(seconds);
+export const useTimer = () => {
+  const [timeLeft, setTimeLeft] = useState(30);
   useEffect(() => {
-    if (!timeLeft || answerSelected) return undefined;
+    if (!timeLeft) return undefined;
     const intervalId = setInterval(() => {
       setTimeLeft(timeLeft - 1);
     }, 1000);
@@ -11,7 +11,7 @@ export const useTimer = (seconds, answerSelected) => {
     return function cleanup() {
       clearInterval(intervalId);
     };
-  }, [timeLeft, answerSelected]);
+  }, [timeLeft]);
 
-  return timeLeft;
+  return [timeLeft, setTimeLeft];
 };

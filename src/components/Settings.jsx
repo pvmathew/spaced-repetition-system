@@ -13,7 +13,7 @@ import { setQuizTime, startQuizSaga } from '../actions';
 
 const Settings = () => {
   const dispatch = useDispatch();
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(5);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +30,7 @@ const Settings = () => {
   return (
     <Segment textAlign='left' loading={loading}>
       <Header as='h1' textAlign='center'>
-        SRS Demo
+        SRS Demo: Video Games
       </Header>
       <Divider />
       <Form>
@@ -39,6 +39,7 @@ const Settings = () => {
           label='Desired Quiz Length (Minutes)'
           placeholder='5'
           onChange={(e) => setTime(e.target.value)}
+          value={time}
         />
 
         <Message error content='Please input a valid number (1-60)' />
