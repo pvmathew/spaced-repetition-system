@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import { Provider } from 'react-redux';
 
 import store from './store';
@@ -10,7 +11,11 @@ import Settings from './components/Settings';
 
 const App = () => (
   <Provider store={store}>
-    <Settings />
+    <Grid style={{ height: '100vh' }} verticalAlign='middle' centered>
+      <Grid.Column style={{ maxWidth: '600px' }}>
+        <Settings />
+      </Grid.Column>
+    </Grid>
   </Provider>
 );
 

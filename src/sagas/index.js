@@ -1,7 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 
-import watchGetQuestionsSaga from './watchers/getQuestions';
+import watchStartQuizSaga from './watchers/startQuiz';
 
 export default function* root() {
-  yield all([fork(watchGetQuestionsSaga)]);
+  yield all([fork(watchStartQuizSaga)]);
 }
