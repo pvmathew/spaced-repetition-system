@@ -88,6 +88,7 @@ const QuestionCard = ({
         value={timeLeft}
         total={30}
         attached='top'
+        color='green'
       />
       {/* {timeLeft} */}
       <Card fluid>
