@@ -41,7 +41,10 @@
     "vars-on-top": 0,
     "no-nested-ternary": 0,
     "eqeqeq": 0,
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "import/prefer-default-export": 0,
+    "operator-linebreak": 0,
+    "indent": 0
   },
   "plugins": ["react", "jest"]
 }

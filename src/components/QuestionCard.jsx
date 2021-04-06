@@ -8,12 +8,15 @@ import {
   Button,
   Message,
   Card,
+  Progress,
 } from 'semantic-ui-react';
 import he from 'he';
+import { useTimer } from '../hooks/useTimer';
 
 const QuestionCard = ({ question, incorrectAnswers, correctAnswer }) => {
   const [answerSelected, setAnswerSelected] = useState('');
   const [answers, setAnswers] = useState([]);
+  const timeLeft = useTimer(30, answerSelected);
 
   useEffect(() => {
     setAnswers(
@@ -29,11 +32,22 @@ const QuestionCard = ({ question, incorrectAnswers, correctAnswer }) => {
     }
   }, [answerSelected]);
 
+  useEffect(() => {
+    if (timeLeft === 0) setAnswerSelected('none');
+  }, [timeLeft]);
+
   const multipleChoice = answers.map((answer) => (
     <Button
       basic
-      negative={answerSelected === answer && answerSelected !== correctAnswer}
-      positive={answerSelected && answer === correctAnswer}
+      color={
+        answerSelected && answerSelected !== 'none' && answer === correctAnswer
+          ? 'green'
+          : answer === answerSelected && answerSelected !== correctAnswer
+          ? 'red'
+          : timeLeft === 0 && answer === correctAnswer
+          ? 'yellow'
+          : null
+      }
       onClick={() => {
         if (!answerSelected) setAnswerSelected(answer);
       }}
@@ -44,7 +58,13 @@ const QuestionCard = ({ question, incorrectAnswers, correctAnswer }) => {
 
   return (
     <Segment textAlign='left' stacked>
-      {correctAnswer}
+      <Progress
+        style={{ minWidth: 0 }}
+        value={timeLeft}
+        total={30}
+        attached='top'
+      />
+      {/* {timeLeft} */}
       <Card fluid>
         <Card.Content>
           <Card.Header>{he.decode(question)}</Card.Header>
