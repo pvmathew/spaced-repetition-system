@@ -7,23 +7,19 @@ import { useTimer } from '../hooks/useTimer';
 
 const Quiz = () => {
   const questions = useSelector((state) => state.questionsReducer.questions);
+  const elapsedTime = useSelector((state) => state.timerReducer.timeElapsed);
   const quizTime = useSelector((state) => state.settingsReducer.quizTime);
   const currentQuestionKey = useSelector(
     (state) => state.queueReducer.currentKey
   );
   const currentQuestion = questions[currentQuestionKey];
-  const [timeLeft, setTimeLeft] = useTimer();
-
-  useEffect(() => {
-    setTimeLeft(quizTime * 60);
-  }, [quizTime]);
 
   return (
     <>
       <Progress
         inverted
-        value={timeLeft}
-        total={quizTime * 60}
+        value={quizTime - elapsedTime}
+        total={quizTime}
         label='Quiz Time Left'
         color='green'
         progress='value'

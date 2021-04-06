@@ -20,7 +20,7 @@ const Settings = () => {
   const handleSubmit = () => {
     if (time > 0 && time <= 60) {
       setLoading(true);
-      dispatch(setQuizTime(parseInt(time, 10)));
+      dispatch(setQuizTime(parseInt(time, 10) * 60));
       dispatch(startQuizSaga());
     } else {
       setError(true);

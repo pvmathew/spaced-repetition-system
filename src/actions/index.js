@@ -1,6 +1,7 @@
 import {
   SET_QUESTIONS,
   SET_QUIZ_TIME,
+  TICK,
   START_QUIZ_SAGA,
   INIT_PRIORITY_QUEUE,
   POP_NEXT_KEY,
@@ -11,6 +12,10 @@ import {
 
 export function setQuizTime(time) {
   return { type: SET_QUIZ_TIME, time };
+}
+
+export function tick() {
+  return { type: TICK };
 }
 
 export function setQuestions(questions) {
