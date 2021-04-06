@@ -20,7 +20,9 @@ const QuestionCard = ({ question, incorrectAnswers, correctAnswer }) => {
 
   useEffect(() => {
     setAnswers(
-      [...incorrectAnswers, correctAnswer].sort(() => Math.random() - 0.5)
+      [...incorrectAnswers, correctAnswer]
+        .sort(() => Math.random() - 0.5)
+        .map((ans) => he.decode(ans))
     );
   }, []);
 
