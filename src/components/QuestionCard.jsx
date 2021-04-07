@@ -52,7 +52,6 @@ const QuestionCard = ({
   }, [answerSelected]);
 
   // on timeout
-
   useEffect(() => {
     if (timeLeft === 0) {
       setTimeout(() => {

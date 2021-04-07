@@ -8,7 +8,7 @@ import { useTimer } from '../hooks/useTimer';
 const Quiz = () => {
   const questions = useSelector((state) => state.questionsReducer.questions);
   const elapsedTime = useSelector((state) => state.timerReducer.timeElapsed);
-  const quizTime = useSelector((state) => state.settingsReducer.quizTime);
+  const quizTime = useSelector((state) => state.timerReducer.quizTime);
   const currentQuestionKey = useSelector(
     (state) => state.queueReducer.currentKey
   );
