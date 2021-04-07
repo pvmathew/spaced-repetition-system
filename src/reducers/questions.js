@@ -83,9 +83,10 @@ export default function questionsReducer(state = initialState, action) {
             ? {
                 ...question,
                 learningLevel: 0,
-                startingEase: action.lapsed
-                  ? question.startingEase - 0.2
-                  : question.startingEase,
+                startingEase:
+                  action.lapsed && question.startingEase > 1.5
+                    ? question.startingEase - 0.2
+                    : question.startingEase,
                 lapsed: action.lapsed,
                 isGraduated: false,
               }
