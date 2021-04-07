@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import he from 'he';
 import { Segment, Button, Card, Progress } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { useTimer } from '../hooks/useTimer';
@@ -22,9 +21,7 @@ const QuestionCard = ({
     setTimeLeft(questionTime);
     setTimeTotal(questionTime);
     setAnswers(
-      [...incorrectAnswers, correctAnswer]
-        .sort(() => Math.random() - 0.5)
-        .map((ans) => he.decode(ans))
+      [...incorrectAnswers, correctAnswer].sort(() => Math.random() - 0.5)
     );
     unpauseTimer();
   };
@@ -54,16 +51,16 @@ const QuestionCard = ({
     <Button
       basic
       color={
-        answerSelected && answerSelected !== 'none' && answer === correctAnswer
+        answerSelected && answer === correctAnswer
           ? 'green'
-          : answer === answerSelected && answerSelected !== correctAnswer
+          : answer === answerSelected && answer !== correctAnswer
           ? 'red'
           : timeLeft === 0 && answer === correctAnswer
           ? 'yellow'
           : null
       }
       onClick={() => {
-        if (!answerSelected) setAnswerSelected(answer);
+        if (!answerSelected && timeLeft > 0) setAnswerSelected(answer);
       }}
     >
       {answer}
@@ -83,7 +80,7 @@ const QuestionCard = ({
       <Card fluid>
         {correctAnswer}
         <Card.Content>
-          <Card.Header>{he.decode(question)}</Card.Header>
+          <Card.Header>{question}</Card.Header>
         </Card.Content>
       </Card>
       <Button.Group vertical fluid>

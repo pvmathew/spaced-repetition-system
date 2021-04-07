@@ -1,4 +1,5 @@
 import React from 'react';
+import he from 'he'; // decodes special characters in html string
 import { useSelector } from 'react-redux';
 import { Grid, Progress } from 'semantic-ui-react';
 import Settings from './Settings';
@@ -34,9 +35,11 @@ const Quiz = () => {
           ) : (
             <QuestionCard
               // key={currentQuestionKey}
-              question={currentQuestion.question}
-              incorrectAnswers={currentQuestion.incorrect_answers}
-              correctAnswer={currentQuestion.correct_answer}
+              question={he.decode(currentQuestion.question)}
+              incorrectAnswers={currentQuestion.incorrect_answers.map((ans) =>
+                he.decode(ans)
+              )}
+              correctAnswer={he.decode(currentQuestion.correct_answer)}
               questionTime={questionTime}
             />
           )}
