@@ -9,6 +9,7 @@ const QuestionCard = ({
   incorrectAnswers,
   correctAnswer,
   questionTime,
+  questionNum,
 }) => {
   const dispatch = useDispatch();
   const [answerSelected, setAnswerSelected] = useState(null);
@@ -33,7 +34,7 @@ const QuestionCard = ({
     if (answerSelected) {
       pauseTimer();
       const bool = answerSelected === correctAnswer;
-      dispatch(answerQuestionSaga(bool));
+      dispatch(answerQuestionSaga(bool, questionNum));
     }
   };
 
@@ -43,12 +44,13 @@ const QuestionCard = ({
   // on timeout
   useEffect(() => {
     if (timeLeft === 0 && !answerSelected) {
-      dispatch(answerQuestionSaga(false));
+      dispatch(answerQuestionSaga(false, questionNum));
     }
   }, [timeLeft]);
 
-  const multipleChoice = answers.map((answer) => (
+  const multipleChoice = answers.map((answer, index) => (
     <Button
+      key={index}
       basic
       color={
         answerSelected && answer === correctAnswer
@@ -69,7 +71,6 @@ const QuestionCard = ({
 
   return (
     <Segment textAlign='left' stacked>
-      {timeLeft}
       <Progress
         style={{ minWidth: 0 }}
         value={timeLeft}

@@ -1,7 +1,7 @@
 import React from 'react';
 import he from 'he'; // decodes special characters in html string
 import { useSelector } from 'react-redux';
-import { Grid, Progress } from 'semantic-ui-react';
+import { Grid, Progress, Segment } from 'semantic-ui-react';
 import Settings from './Settings';
 import QuestionCard from './QuestionCard';
 import Results from './Results';
@@ -11,10 +11,8 @@ const Quiz = () => {
   const { elapsedTime, quizTime, questionTime } = useSelector(
     (state) => state.timerReducer
   );
-  const currentQuestionKey = useSelector(
-    (state) => state.queueReducer.currentKey
-  );
-  const currentQuestion = questions[currentQuestionKey];
+  const key = useSelector((state) => state.queueReducer.currentQuestion.key);
+  const currentQuestion = questions[key];
 
   return (
     <>
@@ -30,18 +28,21 @@ const Quiz = () => {
         <Grid.Column style={{ maxWidth: '600px' }}>
           {quizTime > 0 && elapsedTime === quizTime ? (
             <Results />
-          ) : currentQuestionKey === null ? (
+          ) : key === null ? (
             <Settings />
           ) : (
-            <QuestionCard
-              // key={currentQuestionKey}
-              question={he.decode(currentQuestion.question)}
-              incorrectAnswers={currentQuestion.incorrect_answers.map((ans) =>
-                he.decode(ans)
-              )}
-              correctAnswer={he.decode(currentQuestion.correct_answer)}
-              questionTime={questionTime}
-            />
+            <Segment>
+              {key}
+              <QuestionCard
+                questionNum={key}
+                question={he.decode(currentQuestion.question)}
+                incorrectAnswers={currentQuestion.incorrect_answers.map((ans) =>
+                  he.decode(ans)
+                )}
+                correctAnswer={he.decode(currentQuestion.correct_answer)}
+                questionTime={questionTime}
+              />
+            </Segment>
           )}
         </Grid.Column>
       </Grid>
