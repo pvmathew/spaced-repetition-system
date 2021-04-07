@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Container,
-  Segment,
-  Form,
-  Header,
-  Divider,
-  Button,
-  Message,
-  Card,
-  Progress,
-} from 'semantic-ui-react';
-import { useDispatch, useSelector } from 'react-redux';
 import he from 'he';
+import { Segment, Button, Card, Progress } from 'semantic-ui-react';
+import { useDispatch } from 'react-redux';
 import { useTimer } from '../hooks/useTimer';
 import { answerQuestionSaga } from '../actions';
 
@@ -22,41 +12,41 @@ const QuestionCard = ({
   questionTime,
 }) => {
   const dispatch = useDispatch();
-  const [answerSelected, setAnswerSelected] = useState('');
+  const [answerSelected, setAnswerSelected] = useState(null);
   const [answers, setAnswers] = useState([]);
-  const [timeLeft, setTimeLeft] = useTimer();
+  const [timeLeft, setTimeLeft, pauseTimer, unpauseTimer] = useTimer();
+  const [timeTotal, setTimeTotal] = useState(0);
 
-  // on question change
-  useEffect(() => {
-    setAnswerSelected('');
+  const initQuestionCard = () => {
+    setAnswerSelected(null);
     setTimeLeft(questionTime);
+    setTimeTotal(questionTime);
     setAnswers(
       [...incorrectAnswers, correctAnswer]
         .sort(() => Math.random() - 0.5)
         .map((ans) => he.decode(ans))
     );
-  }, [question]);
+    unpauseTimer();
+  };
+
+  // on question change
+  useEffect(() => initQuestionCard(), [question]);
+
+  const handleAnswerSelection = () => {
+    if (answerSelected) {
+      pauseTimer();
+      const bool = answerSelected === correctAnswer;
+      dispatch(answerQuestionSaga(bool));
+    }
+  };
 
   // on answer selection
-  useEffect(() => {
-    if (answerSelected === correctAnswer) {
-      setTimeout(() => {
-        setAnswerSelected('');
-        dispatch(answerQuestionSaga(true));
-      }, 3000);
-    } else if (answerSelected && answerSelected !== correctAnswer) {
-      setTimeout(() => {
-        dispatch(answerQuestionSaga(false));
-      }, 3000);
-    }
-  }, [answerSelected]);
+  useEffect(() => handleAnswerSelection(), [answerSelected]);
 
   // on timeout
   useEffect(() => {
-    if (timeLeft === 0) {
-      setTimeout(() => {
-        dispatch(answerQuestionSaga(false));
-      }, 3000);
+    if (timeLeft === 0 && !answerSelected) {
+      dispatch(answerQuestionSaga(false));
     }
   }, [timeLeft]);
 
@@ -82,14 +72,14 @@ const QuestionCard = ({
 
   return (
     <Segment textAlign='left' stacked>
+      {timeLeft}
       <Progress
         style={{ minWidth: 0 }}
         value={timeLeft}
-        total={30}
+        total={timeTotal}
         attached='top'
         color='green'
       />
-      {/* {timeLeft} */}
       <Card fluid>
         {correctAnswer}
         <Card.Content>

@@ -7,8 +7,9 @@ import Results from './Results';
 
 const Quiz = () => {
   const questions = useSelector((state) => state.questionsReducer.questions);
-  const elapsedTime = useSelector((state) => state.timerReducer.timeElapsed);
-  const quizTime = useSelector((state) => state.timerReducer.quizTime);
+  const { elapsedTime, quizTime, questionTime } = useSelector(
+    (state) => state.timerReducer
+  );
   const currentQuestionKey = useSelector(
     (state) => state.queueReducer.currentKey
   );
@@ -36,7 +37,7 @@ const Quiz = () => {
               question={currentQuestion.question}
               incorrectAnswers={currentQuestion.incorrect_answers}
               correctAnswer={currentQuestion.correct_answer}
-              questionTime={30}
+              questionTime={questionTime}
             />
           )}
         </Grid.Column>

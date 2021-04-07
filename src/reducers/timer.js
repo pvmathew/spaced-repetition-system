@@ -1,6 +1,6 @@
-import { TICK, SET_QUIZ_TIME } from '../constants';
+import { TICK, SET_QUIZ_TIME, DECREASE_QUESTION_TIME } from '../constants';
 
-const initialState = { timeElapsed: 0, quizTime: 0, questionTime: 30 };
+const initialState = { elapsedTime: 0, quizTime: 0, questionTime: 30 };
 
 export default function timerReducer(state = initialState, action) {
   switch (action.type) {
@@ -9,8 +9,13 @@ export default function timerReducer(state = initialState, action) {
         ...state,
         quizTime: action.time,
       };
+    case DECREASE_QUESTION_TIME:
+      return {
+        ...state,
+        questionTime: state.questionTime - 5,
+      };
     case TICK:
-      return { ...state, timeElapsed: state.timeElapsed + 1 };
+      return { ...state, elapsedTime: state.elapsedTime + 1 };
     default:
       return state;
   }

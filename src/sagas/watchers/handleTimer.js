@@ -8,7 +8,7 @@ import {
   cancel,
 } from 'redux-saga/effects';
 import { START_TIMER_SAGA, TICK } from '../../constants';
-import { tick } from '../../actions';
+import { tick, decreaseQuestonTime } from '../../actions';
 
 function* startQuizTimer() {
   while (true) {
@@ -17,24 +17,19 @@ function* startQuizTimer() {
   }
 }
 
-function* handleTimerSaga() {
-  const timerTask = yield fork(startQuizTimer);
-  // const timeElapsed = yield select((state) => state.timerReducer.timeElapsed);
-  // const quizTime = yield select((state) => state.timerReducer.quizTime);
-
-  // console.log(timeElapsed);
-}
-
 export default function* watchHandleTimerSaga() {
   const timer = yield takeLatest(START_TIMER_SAGA, startQuizTimer);
 
   while (yield take(TICK)) {
-    const timeElapsed = yield select((state) => state.timerReducer.timeElapsed);
-    const quizTime = yield select((state) => state.timerReducer.quizTime);
+    const { elapsedTime, quizTime } = yield select(
+      (state) => state.timerReducer
+    );
+    const step = quizTime / 5;
 
-    if (timeElapsed === quizTime) {
-      console.log('Quiz ends!');
+    if (elapsedTime === quizTime) {
       yield cancel(timer);
+    } else if (elapsedTime % step === 0) {
+      yield put(decreaseQuestonTime());
     }
   }
 

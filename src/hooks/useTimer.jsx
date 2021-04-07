@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 export const useTimer = () => {
   const [timeLeft, setTimeLeft] = useState(30);
+  const [paused, setPaused] = useState(false);
+
+  const pause = () => setPaused(true);
+  const unpause = () => setPaused(false);
+
   useEffect(() => {
-    if (!timeLeft) return undefined;
+    if (!timeLeft || paused) return undefined;
     const intervalId = setInterval(() => {
       setTimeLeft(timeLeft - 1);
     }, 1000);
@@ -11,7 +16,7 @@ export const useTimer = () => {
     return function cleanup() {
       clearInterval(intervalId);
     };
-  }, [timeLeft]);
+  }, [timeLeft, paused]);
 
-  return [timeLeft, setTimeLeft];
+  return [timeLeft, setTimeLeft, pause, unpause];
 };

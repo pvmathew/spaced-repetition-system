@@ -9,6 +9,7 @@ import {
   ANSWERED_CORRECTLY,
   ANSWERED_INCORRECTLY,
   ANSWER_QUESTION_SAGA,
+  DECREASE_QUESTION_TIME,
 } from '../constants';
 
 export function setQuizTime(time) {
@@ -47,6 +48,12 @@ export function answeredCorrectly() {
 export function answeredIncorrectly() {
   return {
     type: ANSWERED_INCORRECTLY,
+  };
+}
+
+export function decreaseQuestonTime() {
+  return {
+    type: DECREASE_QUESTION_TIME,
   };
 }
 

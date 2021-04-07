@@ -1,4 +1,4 @@
-import { put, takeLatest, call, takeEvery } from 'redux-saga/effects';
+import { put, delay, takeEvery } from 'redux-saga/effects';
 import { ANSWER_QUESTION_SAGA } from '../../constants';
 import {
   popNextKey,
@@ -9,13 +9,14 @@ import {
 function* answerQuestionSaga(action) {
   const { correct } = action;
   if (correct) {
-    // if question was answered correctly, adjust priority accordingly
     yield put(answeredCorrectly());
   } else {
-    // if question was answered incorrectly, adjust priority accordingly
     yield put(answeredIncorrectly());
   }
 
+  //adjust priority levels here before pushing card back into queue
+
+  yield delay(3000); // wait 3 seconds before getting next card
   yield put(popNextKey());
 }
 
