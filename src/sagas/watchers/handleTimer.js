@@ -13,7 +13,7 @@ import { tick, decreaseQuestonTime } from '../../actions';
 function* startQuizTimer() {
   while (true) {
     yield delay(1000);
-    yield put(tick());
+    // yield put(tick());
   }
 }
 

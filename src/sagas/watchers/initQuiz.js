@@ -17,7 +17,7 @@ function* startQuizSaga() {
     question.startingEase = 2.5; //  graduated interval multiplier for correct answers; decreases by 0.2 on lapse
     question.currentGraduatedInterval = 10; // starting graduated interval
     question.isGraduated = false;
-    question.hasLapsedOnce = false;
+    question.hasLapsed = false;
   });
 
   yield put(setQuestions(questions));

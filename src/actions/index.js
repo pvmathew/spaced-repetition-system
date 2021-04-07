@@ -6,10 +6,16 @@ import {
   START_TIMER_SAGA,
   INIT_PRIORITY_QUEUE,
   POP_NEXT_KEY,
-  ANSWERED_CORRECTLY,
-  ANSWERED_INCORRECTLY,
   ANSWER_QUESTION_SAGA,
   DECREASE_QUESTION_TIME,
+  LEVEL_UP_QUESTION,
+  GRADUATE_QUESTION,
+  INCREMENT_NUM_CORRECT,
+  INCREMENT_NUM_WRONG,
+  REINSERT_QUESTION,
+  GRADUATE_QUESTION_CAUTIOUSLY,
+  INCREASE_GRADUATED_INTERVAL,
+  RESET_QUESTION_LEVEL,
 } from '../constants';
 
 export function setQuizTime(time) {
@@ -39,21 +45,65 @@ export function popNextKey() {
   };
 }
 
-export function answeredCorrectly() {
+export function incrementNumCorrect() {
   return {
-    type: ANSWERED_CORRECTLY,
+    type: INCREMENT_NUM_CORRECT,
   };
 }
 
-export function answeredIncorrectly() {
+export function incrementNumWrong() {
   return {
-    type: ANSWERED_INCORRECTLY,
+    type: INCREMENT_NUM_WRONG,
   };
 }
 
 export function decreaseQuestonTime() {
   return {
     type: DECREASE_QUESTION_TIME,
+  };
+}
+
+export function levelUpQuestion(key) {
+  return {
+    type: LEVEL_UP_QUESTION,
+    key,
+  };
+}
+
+export function graduateQuestion(key) {
+  return {
+    type: GRADUATE_QUESTION,
+    key,
+  };
+}
+
+export function reinsertQuestion(newPriority, key) {
+  return {
+    type: REINSERT_QUESTION,
+    newPriority,
+    key,
+  };
+}
+
+export function graduateQuestionCautiously(key) {
+  return {
+    type: GRADUATE_QUESTION_CAUTIOUSLY,
+    key,
+  };
+}
+
+export function increaseGraduatedInterval(key) {
+  return {
+    type: INCREASE_GRADUATED_INTERVAL,
+    key,
+  };
+}
+
+export function resetQuestionLevel(lapsed, key) {
+  return {
+    type: RESET_QUESTION_LEVEL,
+    lapsed,
+    key,
   };
 }
 
@@ -66,6 +116,6 @@ export function startTimerSaga() {
   return { type: START_TIMER_SAGA };
 }
 
-export function answerQuestionSaga(bool) {
-  return { type: ANSWER_QUESTION_SAGA, correct: bool };
+export function answerQuestionSaga(correct, key) {
+  return { type: ANSWER_QUESTION_SAGA, correct, key };
 }
