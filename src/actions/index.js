@@ -3,6 +3,7 @@ import {
   SET_QUIZ_TIME,
   TICK,
   START_QUIZ_SAGA,
+  START_TIMER_SAGA,
   INIT_PRIORITY_QUEUE,
   POP_NEXT_KEY,
   ANSWERED_CORRECTLY,
@@ -52,6 +53,10 @@ export function answeredIncorrectly() {
 //Sagas
 export function startQuizSaga() {
   return { type: START_QUIZ_SAGA };
+}
+
+export function startTimerSaga() {
+  return { type: START_TIMER_SAGA };
 }
 
 export function answerQuestionSaga(bool) {

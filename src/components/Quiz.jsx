@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Grid, Progress } from 'semantic-ui-react';
 import Settings from './Settings';
 import QuestionCard from './QuestionCard';
-import { useTimer } from '../hooks/useTimer';
+import Results from './Results';
 
 const Quiz = () => {
   const questions = useSelector((state) => state.questionsReducer.questions);
@@ -26,7 +26,9 @@ const Quiz = () => {
       />
       <Grid style={{ height: '100vh' }} verticalAlign='middle' centered>
         <Grid.Column style={{ maxWidth: '600px' }}>
-          {currentQuestionKey === null ? (
+          {quizTime > 0 && elapsedTime === quizTime ? (
+            <Results />
+          ) : currentQuestionKey === null ? (
             <Settings />
           ) : (
             <QuestionCard

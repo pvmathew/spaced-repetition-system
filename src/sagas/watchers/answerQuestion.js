@@ -9,10 +9,10 @@ import {
 function* answerQuestionSaga(action) {
   const { correct } = action;
   if (correct) {
-    // if question was answered correctly
+    // if question was answered correctly, adjust priority accordingly
     yield put(answeredCorrectly());
   } else {
-    // if question was answered incorrectly
+    // if question was answered incorrectly, adjust priority accordingly
     yield put(answeredIncorrectly());
   }
 
