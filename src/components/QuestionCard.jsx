@@ -5,6 +5,7 @@ import { useTimer } from '../hooks/useTimer';
 import { answerQuestionSaga } from '../actions';
 
 const QuestionCard = ({
+  answered,
   question,
   incorrectAnswers,
   correctAnswer,
@@ -18,17 +19,19 @@ const QuestionCard = ({
   const [timeTotal, setTimeTotal] = useState(0);
 
   const initQuestionCard = () => {
-    setAnswerSelected(null);
-    setTimeLeft(questionTime);
-    setTimeTotal(questionTime);
-    setAnswers(
-      [...incorrectAnswers, correctAnswer].sort(() => Math.random() - 0.5)
-    );
-    unpauseTimer();
+    if (!answered) {
+      setAnswerSelected(null);
+      setTimeLeft(questionTime);
+      setTimeTotal(questionTime);
+      setAnswers(
+        [...incorrectAnswers, correctAnswer].sort(() => Math.random() - 0.5)
+      );
+      unpauseTimer();
+    }
   };
 
   // on question change
-  useEffect(() => initQuestionCard(), [question]);
+  useEffect(() => initQuestionCard(), [answered]);
 
   const handleAnswerSelection = () => {
     if (answerSelected) {
@@ -79,7 +82,6 @@ const QuestionCard = ({
         color='green'
       />
       <Card fluid>
-        {correctAnswer}
         <Card.Content>
           <Card.Header>{question}</Card.Header>
         </Card.Content>

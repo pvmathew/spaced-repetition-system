@@ -13,7 +13,7 @@ import { setQuizTime, startQuizSaga } from '../actions';
 
 const Settings = () => {
   const dispatch = useDispatch();
-  const [time, setTime] = useState(5);
+  const [time, setTime] = useState(10);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +37,7 @@ const Settings = () => {
         <Form.Input
           error={error ? 'Please input a valid number (1-60)' : null}
           label='Desired Quiz Length (Minutes)'
-          placeholder='5'
+          placeholder='10'
           onChange={(e) => setTime(e.target.value)}
           value={time}
         />

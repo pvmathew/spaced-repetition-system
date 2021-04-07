@@ -73,7 +73,7 @@ function* answerQuestionSaga(action) {
     const prevLearningLevel = question.learningLevel;
     const lapsed = prevLearningLevel >= 3;
 
-    yield put(resetQuestionLevel(lapsed));
+    yield put(resetQuestionLevel(lapsed, key));
     yield put(reinsertQuestion(oldPriority + 2, key));
   }
 

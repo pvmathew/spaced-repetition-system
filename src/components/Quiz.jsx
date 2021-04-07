@@ -11,7 +11,9 @@ const Quiz = () => {
   const { elapsedTime, quizTime, questionTime } = useSelector(
     (state) => state.timerReducer
   );
-  const key = useSelector((state) => state.queueReducer.currentQuestion.key);
+  const { answered, key } = useSelector(
+    (state) => state.queueReducer.currentQuestion
+  );
   const currentQuestion = questions[key];
 
   return (
@@ -32,9 +34,9 @@ const Quiz = () => {
             <Settings />
           ) : (
             <Segment>
-              {key}
               <QuestionCard
                 questionNum={key}
+                answered={answered}
                 question={he.decode(currentQuestion.question)}
                 incorrectAnswers={currentQuestion.incorrect_answers.map((ans) =>
                   he.decode(ans)

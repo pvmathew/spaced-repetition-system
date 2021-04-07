@@ -7,7 +7,7 @@ import {
 } from '../constants';
 
 const initialState = {
-  currentQuestion: { key: null, priority: null },
+  currentQuestion: { key: null, priority: null, answered: false },
   queue: null,
 };
 
@@ -28,6 +28,7 @@ export default function queueReducer(state = initialState, action) {
       const currentQuestion = {
         priority,
         key,
+        answered: false,
       };
       // const currentKey = queue.pop();
       return { ...state, currentQuestion };
@@ -35,10 +36,12 @@ export default function queueReducer(state = initialState, action) {
     case REINSERT_QUESTION: {
       const { queue } = state;
       const { newPriority, key } = action;
-      console.log(queue);
       queue.push(key, newPriority);
-      console.log(queue);
-      return { ...state, queue };
+      return {
+        ...state,
+        queue,
+        currentQuestion: { ...state.currentQuestion, answered: true },
+      };
     }
     default:
       return state;

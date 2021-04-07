@@ -13,7 +13,7 @@ import { tick, decreaseQuestonTime } from '../../actions';
 function* startQuizTimer() {
   while (true) {
     yield delay(1000);
-    // yield put(tick());
+    yield put(tick());
   }
 }
 
@@ -32,13 +32,4 @@ export default function* watchHandleTimerSaga() {
       yield put(decreaseQuestonTime());
     }
   }
-
-  // starts the task in the background
-  // const timer = yield fork(startQuizTimer);
-
-  // wait for the user stop action
-  // yield take('STOP_BACKGROUND_SYNC');
-  // user clicked stop. cancel the background task
-  // this will cause the forked bgSync task to jump into its finally block
-  // yield cancel(bgSyncTask);
 }
