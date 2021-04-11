@@ -5,17 +5,17 @@ import {
   START_QUIZ_SAGA,
   START_TIMER_SAGA,
   INIT_PRIORITY_QUEUE,
-  POP_NEXT_KEY,
   ANSWER_QUESTION_SAGA,
   DECREASE_QUESTION_TIME,
   LEVEL_UP_QUESTION,
   GRADUATE_QUESTION,
   INCREMENT_NUM_CORRECT,
   INCREMENT_NUM_WRONG,
-  REINSERT_QUESTION,
   GRADUATE_QUESTION_CAUTIOUSLY,
   INCREASE_GRADUATED_INTERVAL,
   RESET_QUESTION_LEVEL,
+  UPDATE_QUEUE_AFTER_POP,
+  UPDATE_QUEUE_AFTER_PUSH,
 } from '../constants';
 
 export function setQuizTime(time) {
@@ -33,15 +33,26 @@ export function setQuestions(questions) {
   };
 }
 
-export function initPriorityQueue() {
+export function initPriorityQueue(keys, priorities) {
   return {
     type: INIT_PRIORITY_QUEUE,
+    keys,
+    priorities,
   };
 }
 
-export function popNextKey() {
+export function updateQueueAfterPush(keys, priorities) {
   return {
-    type: POP_NEXT_KEY,
+    type: UPDATE_QUEUE_AFTER_PUSH,
+    keys,
+    priorities,
+  };
+}
+
+export function updateQueueAfterPop(currentQuestion) {
+  return {
+    type: UPDATE_QUEUE_AFTER_POP,
+    currentQuestion,
   };
 }
 
@@ -73,14 +84,6 @@ export function levelUpQuestion(key) {
 export function graduateQuestion(key) {
   return {
     type: GRADUATE_QUESTION,
-    key,
-  };
-}
-
-export function reinsertQuestion(newPriority, key) {
-  return {
-    type: REINSERT_QUESTION,
-    newPriority,
     key,
   };
 }

@@ -83,7 +83,10 @@ const QuestionCard = ({
       />
       <Card fluid>
         <Card.Content>
-          <Card.Header>{question}</Card.Header>
+          <Card.Header>
+            {questionNum}
+            {question}
+          </Card.Header>
         </Card.Content>
       </Card>
       <Button.Group vertical fluid>

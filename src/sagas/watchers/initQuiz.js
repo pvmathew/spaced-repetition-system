@@ -1,12 +1,8 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import { START_QUIZ_SAGA } from '../../constants';
-import {
-  setQuestions,
-  initPriorityQueue,
-  popNextKey,
-  startTimerSaga,
-} from '../../actions';
+import { setQuestions, initPriorityQueue, startTimerSaga } from '../../actions';
 import { getQuestions } from '../../lib/api';
+import * as heapify from '../../heapify';
 
 function* startQuizSaga() {
   const data = yield call(getQuestions);
@@ -21,8 +17,17 @@ function* startQuizSaga() {
   });
 
   yield put(setQuestions(questions));
-  yield put(initPriorityQueue());
-  yield put(popNextKey());
+
+  // root index is 1, and first question is already popped
+  const keys = [0];
+  const priorities = [0];
+
+  for (let i = 0; i < questions.length; i++) {
+    // insert questions 1-20 into heap, starting from root index 1
+    keys[i + 1] = i;
+    priorities[i + 1] = i;
+  }
+  yield put(initPriorityQueue(keys, priorities));
   yield put(startTimerSaga());
 }
 
