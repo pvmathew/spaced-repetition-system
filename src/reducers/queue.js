@@ -15,7 +15,7 @@ export default function queueReducer(state = initialState, action) {
   switch (action.type) {
     case INIT_PRIORITY_QUEUE: {
       const queue = new Heapify(NUM_QUESTIONS); // default number of questions = 20
-      for (let i = 0; i < NUM_QUESTIONS; i++) queue.push(i, i);
+      for (let i = 0; i < NUM_QUESTIONS; i++) queue.push(i, i); // initialize heap with priority values equivalent to each question's order of appearance
       return {
         ...state,
         queue,
@@ -30,7 +30,6 @@ export default function queueReducer(state = initialState, action) {
         key,
         answered: false,
       };
-      // const currentKey = queue.pop();
       return { ...state, currentQuestion };
     }
     case REINSERT_QUESTION: {

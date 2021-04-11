@@ -3,7 +3,6 @@ import {
   takeLatest,
   delay,
   select,
-  fork,
   take,
   cancel,
 } from 'redux-saga/effects';

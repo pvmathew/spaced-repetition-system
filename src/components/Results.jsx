@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Segment, Header, Button, List, Container } from 'semantic-ui-react';
+import { Segment, Header, List } from 'semantic-ui-react';
 
 const Results = () => {
   const { numCorrect, numWrong } = useSelector(

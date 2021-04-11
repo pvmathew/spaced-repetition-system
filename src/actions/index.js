@@ -107,7 +107,7 @@ export function resetQuestionLevel(lapsed, key) {
   };
 }
 
-//Sagas
+// Saga
 export function startQuizSaga() {
   return { type: START_QUIZ_SAGA };
 }

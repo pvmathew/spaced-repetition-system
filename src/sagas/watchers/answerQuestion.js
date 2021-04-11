@@ -21,13 +21,11 @@ function* answerQuestionSaga(action) {
     (state) => state.queueReducer.currentQuestion.priority
   );
 
-  //adjust priority levels here before pushing card back into queue
+  // adjust priority levels here before pushing card back into queue
   if (correct) {
     yield put(incrementNumCorrect());
 
     const newLearningLevel = question.learningLevel + 1; // card's new learning level after getting answered correctly
-    console.log('newLearningLevel: ' + newLearningLevel);
-
     switch (newLearningLevel) {
       case 1:
         yield put(levelUpQuestion(key));
@@ -35,7 +33,7 @@ function* answerQuestionSaga(action) {
         break;
       case 2:
         yield put(levelUpQuestion(key));
-        yield put(reinsertQuestion(oldPriority + 6, key));
+        yield put(reinsertQuestion(oldPriority + 7, key));
         break;
       case 3: //if graduating
         if (question.hasLapsed) {
@@ -58,7 +56,7 @@ function* answerQuestionSaga(action) {
         }
         break;
       default:
-        //if already graduated
+        // if already graduated
         yield put(increaseGraduatedInterval(key));
         yield put(
           reinsertQuestion(
@@ -69,15 +67,17 @@ function* answerQuestionSaga(action) {
         );
     }
   } else {
+    // if question was answered incorrectly
     yield put(incrementNumWrong());
     const prevLearningLevel = question.learningLevel;
     const lapsed = prevLearningLevel >= 3;
 
+    // reset question back to level 0 and reinsert
     yield put(resetQuestionLevel(lapsed, key));
     yield put(reinsertQuestion(oldPriority + 2, key));
   }
 
-  // wait 3 seconds and pop next card
+  // wait 3 seconds and pop next questoin
   yield delay(3000);
   yield put(popNextKey());
 }

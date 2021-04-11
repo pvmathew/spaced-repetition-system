@@ -1,5 +1,5 @@
 import React from 'react';
-import he from 'he'; // decodes special characters in html string
+import he from 'he'; // used for decoding special characters in html string
 import { useSelector } from 'react-redux';
 import { Grid, Progress, Segment } from 'semantic-ui-react';
 import Settings from './Settings';

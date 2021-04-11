@@ -25,7 +25,7 @@ export default function questionsReducer(state = initialState, action) {
         questions: action.questions,
       };
 
-    case LEVEL_UP_QUESTION:
+    case LEVEL_UP_QUESTION: // level range 0-3; 3 means the question is graduated
       return {
         ...state,
         questions: state.questions.map((question, i) =>
@@ -45,7 +45,7 @@ export default function questionsReducer(state = initialState, action) {
         ),
       };
 
-    case GRADUATE_QUESTION_CAUTIOUSLY:
+    case GRADUATE_QUESTION_CAUTIOUSLY: // if a previously lapsed card is graduating, show it sooner than the last time it graduated
       return {
         ...state,
         questions: state.questions.map((question, i) =>
@@ -61,7 +61,7 @@ export default function questionsReducer(state = initialState, action) {
         ),
       };
 
-    case INCREASE_GRADUATED_INTERVAL:
+    case INCREASE_GRADUATED_INTERVAL: // if a graduated card is answered correctly, increase the time until it appears again
       return {
         ...state,
         questions: state.questions.map((question, i) =>
@@ -75,7 +75,7 @@ export default function questionsReducer(state = initialState, action) {
         ),
       };
 
-    case RESET_QUESTION_LEVEL:
+    case RESET_QUESTION_LEVEL: // jf a question is answered wrong, reset its level back to 0
       return {
         ...state,
         questions: state.questions.map((question, i) =>
@@ -83,6 +83,7 @@ export default function questionsReducer(state = initialState, action) {
             ? {
                 ...question,
                 learningLevel: 0,
+                // jf a graduated card is answered incorrectly, lower the modifier used for increasing its graduated interval
                 startingEase:
                   action.lapsed && question.startingEase > 1.5
                     ? question.startingEase - 0.2

@@ -13,8 +13,8 @@ function* startQuizSaga() {
   const questions = data.results;
 
   questions.forEach((question) => {
-    question.learningLevel = 0; // question graduates at 3
-    question.startingEase = 2.5; //  graduated interval multiplier for correct answers; decreases by 0.2 on lapse
+    question.learningLevel = 0; // question graduates at level 3
+    question.startingEase = 2.5; // graduated interval multiplier for correct answers; decreases by 0.2 on lapse
     question.currentGraduatedInterval = 10; // starting graduated interval
     question.isGraduated = false;
     question.hasLapsed = false;

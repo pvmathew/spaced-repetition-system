@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Segment,
@@ -8,7 +8,7 @@ import {
   Button,
   Message,
 } from 'semantic-ui-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setQuizTime, startQuizSaga } from '../actions';
 
 const Settings = () => {
