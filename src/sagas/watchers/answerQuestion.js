@@ -16,10 +16,6 @@ import { bubbleDown } from '../../heapify';
 function* pushQuestion(priority, key) {
   const queue = yield select((state) => state.queueReducer.queue);
 
-  if (queue.length === queue.capacity) {
-    throw new Error("Heap has reached capacity, can't push new items");
-  }
-
   // using array spread to clone state
   const keys = [...queue.keys];
   const priorities = [...queue.priorities];
@@ -68,7 +64,7 @@ function* answerQuestionSaga(action) {
         yield put(levelUpQuestion(key));
         yield call(pushQuestion, oldPriority + 7, key);
         break;
-      case 3: //if graduating
+      case 3: // if graduating
         if (question.hasLapsed) {
           // if user lapsed on this card before
           yield put(graduateQuestionCautiously(key));
@@ -107,7 +103,7 @@ function* answerQuestionSaga(action) {
     yield call(pushQuestion, oldPriority + 2, key);
   }
 
-  // wait 3 seconds and pop next questoin
+  // wait 3 seconds and pop next question
   yield delay(3000);
   yield call(popQuestion);
 }
