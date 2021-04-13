@@ -46,7 +46,7 @@ Level 1 -> 2: 7
 
 - This was my first time working with Redux-Saga. I found it really interesting to learn about generator functions and how yielding works. Because I've worked with Redux-Thunk before, I wasn't unfamiliar with using middleware for dispatching actions with side-effects. It was my first time doing it with code that looks so synchronous though. I could see something like Redux-Saga being particularly valuable for handling/cancelling different side-effects on page navigation.
 
-- At first, I had implemented my priority queue using a third-party library called Heapify.js. In the end, I couldn't figure out a way to rely on it without mutating state. So I stripped the class down its two core typed arrays (keys and priorities) and stored those both in the store. Then it was just a matter of implementing a push function. (New keys are inserted at the root and bubble down to their rightful place)
+- At first, I had implemented my priority queue using a third-party library called Heapify.js. In the end, I couldn't figure out a way to rely on it without mutating state. So I stripped the class down its two core arrays (keys and priorities) and stored those both in the store. Then it was just a matter of implementing a push function. (New keys are inserted at the root and bubble down to their rightful place)
 
 - If I were to implement an alternative method for tracking elapsed quiz time, I would instead store the quiz's start/end time and derive it from those. Any time it's needed, I could calculate elapsed time by subtracting the current time by the quiz's start time. This would keep action dispatches to a minimum, potentially performing better on slower devices.
 
