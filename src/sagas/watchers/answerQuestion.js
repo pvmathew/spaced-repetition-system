@@ -20,7 +20,7 @@ function* pushQuestion(priority, key) {
   const keys = [...queue.keys];
   const priorities = [...queue.priorities];
 
-  // since we are only ever pushing into queue when it has a popped element, we only ever need to bubble down
+  // since we are only pushing into queue when it has a popped element, we only need to bubble down
   keys[ROOT_INDEX] = key;
   priorities[ROOT_INDEX] = priority;
   bubbleDown(keys, priorities, ROOT_INDEX);
@@ -50,7 +50,7 @@ function* answerQuestionSaga(action) {
     (state) => state.queueReducer.currentQuestion.priority
   );
 
-  // adjust priority levels here before pushing card back into queue
+  // adjust priority intervals here before pushing card back into queue
   if (correct) {
     yield put(incrementNumCorrect());
 
